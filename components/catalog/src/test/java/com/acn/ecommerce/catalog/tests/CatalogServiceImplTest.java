@@ -15,7 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -56,6 +58,28 @@ public class CatalogServiceImplTest {
     @Test
     @DisplayName("Catalog Service List Items by Category Test")
     public void listByCatalogIdTest() {
+        List<CatalogItem> items = Arrays.asList(
+                CatalogItem.builder()
+                        .id(1L)
+                        .name("item1")
+                        .description("item1desc")
+                        .price(1.00f)
+                        .categories(new ArrayList<>())
+                        .build(),
+                CatalogItem.builder()
+                        .id(2L).name("item2")
+                        .description("item2desc")
+                        .price(2.00f)
+                        .categories(new ArrayList<>())
+                        .build()
+        );
+
+        when(catalogRepository.findAllByCatalogId(anyLong())).thenReturn(items);
+
+        List<CatalogItem> result = catalogService.listByCatalogId(1L);
+
+        assertEquals(items, result);
+        verify(catalogRepository, times(1)).findAllByCatalogId(anyLong());
     }
 
     @Test
