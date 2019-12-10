@@ -1,3 +1,5 @@
 rootProject.name = "acn-ecommerce"
 
 include ':apps:catalog-server'
+
+include ':components:catalog'
