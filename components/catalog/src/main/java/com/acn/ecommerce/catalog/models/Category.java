@@ -2,11 +2,9 @@ package com.acn.ecommerce.catalog.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,5 +18,8 @@ public class Category {
     private String name;
 
     private String description;
+
+    @ManyToMany(mappedBy = "categories")
+    private List<CatalogItem> items;
 
 }

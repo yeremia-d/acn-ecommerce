@@ -3,8 +3,8 @@ package com.acn.ecommerce.catalog.controllers;
 import com.acn.ecommerce.catalog.models.CatalogItem;
 import com.acn.ecommerce.catalog.services.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,39 +20,35 @@ public class CatalogController {
         this.catalogService = catalogService;
     }
 
-    // list
     @GetMapping
-    List<CatalogItem> list(Pageable pageable) {
-        return null;
+    Page<CatalogItem> list(Pageable pageable) {
+        return catalogService.list(pageable);
     }
 
-    // GetById
     @GetMapping("/{id}")
     CatalogItem getById(@PathVariable Long id) {
-        return null;
+        return catalogService.getById(id);
     }
 
-    // Get by category
     @GetMapping("/categoryId")
-    List<CatalogItem> getByItemsByCategoryId(@PathVariable Long categoryId, Pageable pageable) {
-        return null;
+    List<CatalogItem> getByItemsByCategoryId(@PathVariable Long categoryId) {
+        return catalogService.listByCatalogId(categoryId);
     }
 
     // create (when assigned a category, ensure all categories exist)
     @PostMapping
     CatalogItem create(@RequestBody CatalogItem catalogItem) {
-        return null;
+        return catalogService.create(catalogItem);
     }
 
     // update (when updating, ensure all categories exist)
     @PutMapping("/{id}")
     CatalogItem update(@RequestBody CatalogItem catalogItem) {
-        return null;
+        return catalogService.update(catalogItem);
     }
 
-    //delete
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        return null;
+    void deleteById(@PathVariable Long id) {
+        catalogService.deleteById(id);
     }
 }

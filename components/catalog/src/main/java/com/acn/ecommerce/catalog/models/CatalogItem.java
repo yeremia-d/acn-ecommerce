@@ -27,5 +27,10 @@ public class CatalogItem {
     private Float price;
 
     @ManyToMany
+    @JoinTable(
+            name = "items_categories",
+            joinColumns = @JoinColumn(name = "catalog_item_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     private List<Category> categories;
 }
