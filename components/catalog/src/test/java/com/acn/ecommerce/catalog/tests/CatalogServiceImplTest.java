@@ -180,6 +180,29 @@ public class CatalogServiceImplTest {
     @Test
     @DisplayName("Catalog Service Update Item Test")
     public void updateTest() {
+
+        CatalogItem originalItem = CatalogItem.builder()
+                .id(1L)
+                .name("item1o")
+                .description("itemDesc1o")
+                .price(5.99f)
+                .categories(categories_1)
+                .build();
+
+        CatalogItem updatedItem = CatalogItem.builder()
+                .id(1L)
+                .name("item1u")
+                .description("itemDesc1u")
+                .price(6.99f)
+                .categories(categories_2)
+                .build();
+
+        when(catalogRepository.save(originalItem)).thenReturn(updatedItem);
+        when(categoryRepository.saveAll(categories_2)).thenReturn(categories_2);
+
+        CatalogItem result = catalogService.update(originalItem.getId(), updatedItem);
+
+        assertEquals(result, updatedItem);
     }
 
     @Test

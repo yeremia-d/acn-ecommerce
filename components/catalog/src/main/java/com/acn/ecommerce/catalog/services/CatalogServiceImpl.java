@@ -44,7 +44,7 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public CatalogItem update(CatalogItem catalogItem) {
+    public CatalogItem update(Long id, CatalogItem catalogItem) {
         return null;
     }
 
