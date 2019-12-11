@@ -127,19 +127,12 @@ public class CatalogServiceImplTest {
     @Test
     @DisplayName("Catalog Service Get by Id Test")
     public void getByIdTest() {
-        CatalogItem expected = CatalogItem.builder()
-                .id(1L)
-                .name("item")
-                .description("itemDescription")
-                .price(5.99f)
-                .categories(new ArrayList<>())
-                .build();
-        when(catalogRepository.findById(expected.getId())).thenReturn(Optional.of(expected));
+        when(catalogRepository.findById(item_1.getId())).thenReturn(Optional.of(item_1));
 
-        CatalogItem result = catalogService.getById(expected.getId());
+        CatalogItem result = catalogService.getById(item_1.getId());
 
-        assertEquals(result, expected);
-        verify(catalogRepository, times(1)).findById(expected.getId());
+        assertEquals(result, item_1);
+        verify(catalogRepository, times(1)).findById(item_1.getId());
     }
 
     @Test
@@ -156,8 +149,21 @@ public class CatalogServiceImplTest {
     @Test
     @DisplayName("Catalog Service Create Catalog Item Test")
     public void createTest() {
-        CatalogItem savedItem = CatalogItem.builder().id(1L).name("item1").description("item1Desc").categories(new ArrayList<>()).price(5.99f).build();
-        CatalogItem inputItem = CatalogItem.builder().name("item1").description("item1Desc").categories(new ArrayList<>()).price(5.99f).build();
+        CatalogItem savedItem = CatalogItem.builder()
+                .id(1L)
+                .name("item1")
+                .description("item1Desc")
+                .categories(categories_1)
+                .price(5.99f)
+                .build();
+
+        CatalogItem inputItem = CatalogItem.builder()
+                .name("item1")
+                .description("item1Desc")
+                .categories(categories_1)
+                .price(5.99f)
+                .build();
+
         when(catalogRepository.save(inputItem)).thenReturn(savedItem);
 
         CatalogItem result = catalogService.create(inputItem);
