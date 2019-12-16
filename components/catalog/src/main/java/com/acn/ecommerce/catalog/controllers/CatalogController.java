@@ -43,8 +43,8 @@ public class CatalogController {
 
     // update (when updating, ensure all categories exist)
     @PutMapping("/{id}")
-    CatalogItem update(@RequestBody CatalogItem catalogItem) {
-        return catalogService.update(catalogItem);
+    CatalogItem update(@PathVariable Long id, @RequestBody CatalogItem catalogItem) {
+        return catalogService.update(id, catalogItem);
     }
 
     @DeleteMapping("/{id}")
