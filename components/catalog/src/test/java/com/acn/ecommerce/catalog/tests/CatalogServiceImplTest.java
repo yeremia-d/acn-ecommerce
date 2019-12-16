@@ -179,7 +179,7 @@ public class CatalogServiceImplTest {
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
         when(catalogRepository.save(any())).thenReturn(item_1);
 
-        CatalogItem result = catalogService.create(item_1);
+        catalogService.create(item_1);
 
         assertThrows(CategoryNotFoundException.class, () -> catalogService.create(any()));
     }
