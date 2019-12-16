@@ -16,7 +16,7 @@ public interface CatalogService {
 
     CatalogItem create(CatalogItem catalogItem);
 
-    CatalogItem update(CatalogItem catalogItem);
+    CatalogItem update(Long id, CatalogItem catalogItem);
 
     void deleteById(Long id);
 
