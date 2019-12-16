@@ -175,6 +175,13 @@ public class CatalogServiceImplTest {
     @Test
     @DisplayName("Catalog Service Create Catalog Item Test")
     public void createTest__categoryNotFound() {
+
+        when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(catalogRepository.save(any())).thenReturn(item_1);
+
+        CatalogItem result = catalogService.create(item_1);
+
+        assertThrows(CategoryNotFoundException.class, () -> catalogService.create(any()));
     }
 
     @Test
@@ -208,11 +215,24 @@ public class CatalogServiceImplTest {
     @Test
     @DisplayName("Catalog Service Update Item Test")
     public void updateTest__categoryNotFound() {
+        when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(catalogRepository.save(any())).thenReturn(item_1);
+
+        CatalogItem result = catalogService.update(1L, item_1);
+
+        assertThrows(CategoryNotFoundException.class, () -> catalogService.update(anyLong(), any()));
     }
 
     @Test
     @DisplayName("Catalog Service Get by Id Test")
     public void updateTest__itemNotFound() {
+        when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(category_1));
+        when(catalogRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(catalogRepository.save(any())).thenReturn(item_1);
+
+        CatalogItem result = catalogService.update(item_1.getId(), item_1);
+
+        assertThrows(CatalogItemNotFoundException.class, () -> catalogService.update(anyLong(), any()));
     }
 
     @Test
@@ -229,7 +249,12 @@ public class CatalogServiceImplTest {
     @Test
     @DisplayName("Catalog Service Delete Item by Id Test")
     public void deleteByIdTest__itemNotFound() {
+        when(catalogRepository.findById(anyLong())).thenReturn(Optional.empty());
+        doNothing().when(catalogRepository).deleteById(anyLong());
 
+        catalogService.deleteById(1L);
+
+        assertThrows(CatalogItemNotFoundException.class, () -> catalogService.deleteById(anyLong()));
     }
 
 }
