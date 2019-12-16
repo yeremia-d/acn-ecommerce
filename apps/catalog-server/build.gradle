@@ -1,2 +1,1 @@
 apply from: "$rootDir/apps/server.gradle"
-

@@ -23,6 +23,10 @@ subprojects {
         useJUnitPlatform()
     }
 
+    bootRun{
+        enabled = false
+    }
+
     bootJar {
         enabled = false
     }

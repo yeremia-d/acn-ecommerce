@@ -125,11 +125,18 @@ public class CatalogServiceImplTest {
     @Test
     @DisplayName("Catalog Service Delete Item by Id Test")
     public void deleteByIdTest() {
+
+        doNothing().when(catalogRepository).deleteById(anyLong());
+
+        catalogService.deleteById(1L);
+
+        verify(catalogRepository, times(1)).deleteById(anyLong());
     }
 
     @Test
     @DisplayName("Catalog Service Delete Item by Id Test")
     public void deleteByIdTest__itemNotFound() {
+
     }
 
 }
