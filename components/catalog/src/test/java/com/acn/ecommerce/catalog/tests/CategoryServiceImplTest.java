@@ -101,7 +101,7 @@ public class CategoryServiceImplTest {
 
         Category result = categoryService.update(category_1.getId(), category_1);
 
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.update(anyLong(), any()));
+        assertThrows(CategoryNotFoundException.class, () -> categoryService.update(category_1.getId(), category_1));
     }
 
     @Test
