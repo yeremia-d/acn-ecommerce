@@ -15,5 +15,5 @@ public interface CategoryService {
 
     Category update(Long id, Category category) throws CategoryNotFoundException;
 
-    void deleteById(Long id);
+    Long deleteById(Long id) throws CategoryNotFoundException;
 }

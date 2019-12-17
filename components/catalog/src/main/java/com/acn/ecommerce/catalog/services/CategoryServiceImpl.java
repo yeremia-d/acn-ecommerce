@@ -17,33 +17,28 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
-
         this.categoryRepository = categoryRepository;
     }
 
     @Override
     public List<Category> list() {
-
         return categoryRepository.findAll();
     }
 
     @Override
     public Category getById(Long id) throws CategoryNotFoundException {
-
         return categoryRepository
                 .findById(id)
-                .orElseThrow(CategoryNotFoundException::new);
+                .orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     @Override
     public Category create(Category category) {
-
         return categoryRepository.save(category);
     }
 
     @Override
     public Category update(Long id, Category category) throws CategoryNotFoundException {
-
         return categoryRepository
                 .findById(id)
                 .map(existingCategory -> {
@@ -55,11 +50,17 @@ public class CategoryServiceImpl implements CategoryService {
                             .build();
                     return categoryRepository.save(updated);
                 })
-                .orElseThrow(CategoryNotFoundException::new);
+                .orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     @Override
-    public void deleteById(Long id) {
-
+    public Long deleteById(Long id) throws CategoryNotFoundException {
+        return categoryRepository
+                .findById(id)
+                .map(categoryToDelete -> {
+                    categoryRepository.deleteById(categoryToDelete.getId());
+                    return categoryToDelete.getId();
+                })
+                .orElseThrow(() -> new CategoryNotFoundException(id));
     }
 }
