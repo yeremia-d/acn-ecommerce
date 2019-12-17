@@ -1,6 +1,6 @@
-package com.acn.ecommerce.catalog.services;
+package com.acn.ecommerce.catalog;
 
-import com.acn.ecommerce.catalog.models.CatalogItem;
+import com.acn.ecommerce.catalog.data.CatalogItem;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

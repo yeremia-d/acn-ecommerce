@@ -5,3 +5,4 @@ include 'platform-services:eureka-server'
 include 'apps:catalog-server'
 
 include 'components:catalog'
+include 'components:category'

@@ -1,8 +1,7 @@
-package com.acn.ecommerce.catalog.services;
+package com.acn.ecommerce.catalog;
 
-import com.acn.ecommerce.catalog.models.CatalogItem;
-import com.acn.ecommerce.catalog.repositories.CatalogRepository;
-import com.acn.ecommerce.catalog.repositories.CategoryRepository;
+import com.acn.ecommerce.catalog.data.CatalogItem;
+import com.acn.ecommerce.category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

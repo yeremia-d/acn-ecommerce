@@ -1,4 +1,4 @@
-package com.acn.ecommerce.catalog.exceptions;
+package com.acn.ecommerce.category;
 
 public class CategoryNotFoundException extends RuntimeException {
 

@@ -1,9 +1,9 @@
-package com.acn.ecommerce.catalog.tests;
+package com.acn.ecommerce.category.test;
 
-import com.acn.ecommerce.catalog.exceptions.CategoryNotFoundException;
-import com.acn.ecommerce.catalog.models.Category;
-import com.acn.ecommerce.catalog.repositories.CategoryRepository;
-import com.acn.ecommerce.catalog.services.CategoryServiceImpl;
+import com.acn.ecommerce.category.CategoryNotFoundException;
+import com.acn.ecommerce.category.CategoryRepository;
+import com.acn.ecommerce.category.CategoryServiceImpl;
+import com.acn.ecommerce.category.data.Category;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

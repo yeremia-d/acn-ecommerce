@@ -1,7 +1,6 @@
-package com.acn.ecommerce.catalog.services;
+package com.acn.ecommerce.category;
 
-import com.acn.ecommerce.catalog.exceptions.CategoryNotFoundException;
-import com.acn.ecommerce.catalog.models.Category;
+import com.acn.ecommerce.category.data.Category;
 
 import java.util.List;
 

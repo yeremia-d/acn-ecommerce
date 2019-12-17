@@ -1,8 +1,6 @@
-package com.acn.ecommerce.catalog.services;
+package com.acn.ecommerce.category;
 
-import com.acn.ecommerce.catalog.exceptions.CategoryNotFoundException;
-import com.acn.ecommerce.catalog.models.Category;
-import com.acn.ecommerce.catalog.repositories.CategoryRepository;
+import com.acn.ecommerce.category.data.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +44,6 @@ public class CategoryServiceImpl implements CategoryService {
                             .id(existingCategory.getId())
                             .name(category.getName())
                             .description(category.getDescription())
-                            .items(existingCategory.getItems())
                             .build();
                     return categoryRepository.save(updated);
                 })
