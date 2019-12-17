@@ -30,8 +30,8 @@ public class CatalogController {
     }
 
     @GetMapping("/categoryId")
-    List<CatalogItem> getByItemsByCategoryId(@PathVariable Long categoryId) {
-        return catalogService.listByCatalogId(categoryId);
+    List<CatalogItem> getByItemsByCategoryId(@PathVariable Long categoryId, Pageable pageable) {
+        return catalogService.listByCatalogId(categoryId, pageable);
     }
 
     // create (when assigned a category, ensure all categories exist)

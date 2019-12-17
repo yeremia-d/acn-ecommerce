@@ -10,7 +10,7 @@ public interface CatalogService {
 
     Page<CatalogItem> list(Pageable pageable);
 
-    List<CatalogItem> listByCatalogId(Long id);
+    List<CatalogItem> listByCatalogId(Long categoryId, Pageable pageable);
 
     CatalogItem getById(Long id);
 
@@ -18,6 +18,6 @@ public interface CatalogService {
 
     CatalogItem update(Long id, CatalogItem catalogItem);
 
-    void deleteById(Long id);
+    Long deleteById(Long id);
 
 }

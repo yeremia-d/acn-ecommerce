@@ -19,7 +19,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -107,7 +106,7 @@ public class CatalogServiceImplTest {
         when(catalogRepository.findAllByCatalogId(category_1.getId())).thenReturn(items);
         when(categoryRepository.findById(category_1.getId())).thenReturn(Optional.of(category_1));
 
-        List<CatalogItem> result = catalogService.listByCatalogId(category_1.getId());
+        List<CatalogItem> result = catalogService.listByCatalogId(category_1.getId(), PageRequest.of(1, 1));
 
         assertEquals(items, result);
         verify(catalogRepository, times(1)).findAllByCatalogId(anyLong());
@@ -116,12 +115,9 @@ public class CatalogServiceImplTest {
     @Test
     @DisplayName("Catalog Service List Items by Category Test")
     public void listByCatalogIdTest__categoryNotFound() {
-        when(catalogRepository.findAllByCatalogId(anyLong())).thenReturn(new ArrayList<>());
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        List<CatalogItem> result = catalogService.listByCatalogId(anyLong());
-
-        assertThrows(CategoryNotFoundException.class, () -> catalogService.listByCatalogId(anyLong()));
+        assertThrows(CategoryNotFoundException.class, () -> catalogService.listByCatalogId(1L, PageRequest.of(1, 1)));
     }
 
     @Test
@@ -140,8 +136,6 @@ public class CatalogServiceImplTest {
     public void getByIdTest__itemNotFound() {
 
         when(catalogRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-        CatalogItem result = catalogService.getById(anyLong());
 
         assertThrows(CatalogItemNotFoundException.class, () -> catalogService.getById(anyLong()));
     }
