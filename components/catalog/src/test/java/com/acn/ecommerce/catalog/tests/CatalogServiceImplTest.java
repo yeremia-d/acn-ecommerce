@@ -179,9 +179,7 @@ public class CatalogServiceImplTest {
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
         when(catalogRepository.save(any())).thenReturn(item_1);
 
-        catalogService.create(item_1);
-
-        assertThrows(CategoryNotFoundException.class, () -> catalogService.create(any()));
+        assertThrows(CategoryNotFoundException.class, () -> catalogService.create(item_1));
     }
 
     @Test
@@ -218,9 +216,7 @@ public class CatalogServiceImplTest {
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
         when(catalogRepository.save(any())).thenReturn(item_1);
 
-        CatalogItem result = catalogService.update(1L, item_1);
-
-        assertThrows(CategoryNotFoundException.class, () -> catalogService.update(anyLong(), any()));
+        assertThrows(CategoryNotFoundException.class, () -> catalogService.update(item_1.getId(), item_1));
     }
 
     @Test
@@ -230,9 +226,7 @@ public class CatalogServiceImplTest {
         when(catalogRepository.findById(anyLong())).thenReturn(Optional.empty());
         when(catalogRepository.save(any())).thenReturn(item_1);
 
-        CatalogItem result = catalogService.update(item_1.getId(), item_1);
-
-        assertThrows(CatalogItemNotFoundException.class, () -> catalogService.update(anyLong(), any()));
+        assertThrows(CatalogItemNotFoundException.class, () -> catalogService.update(item_1.getId(), item_1));
     }
 
     @Test
@@ -252,9 +246,7 @@ public class CatalogServiceImplTest {
         when(catalogRepository.findById(anyLong())).thenReturn(Optional.empty());
         doNothing().when(catalogRepository).deleteById(anyLong());
 
-        catalogService.deleteById(1L);
-
-        assertThrows(CatalogItemNotFoundException.class, () -> catalogService.deleteById(anyLong()));
+        assertThrows(CatalogItemNotFoundException.class, () -> catalogService.deleteById(1L));
     }
 
 }
