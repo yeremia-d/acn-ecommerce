@@ -15,8 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -64,12 +63,12 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void getByIdTest__categoryNotFound() throws CategoryNotFoundException {
+    public void getByIdTest__categoryNotFound() {
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        Category result = categoryService.getById(1L);
+        Exception exception = assertThrows(CategoryNotFoundException.class, () -> categoryService.getById(1L));
 
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.getById(1L));
+        assertTrue(exception.getMessage().contains("Category with id 1 not found or does not exist."));
     }
 
     @Test
@@ -84,7 +83,7 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void updateTest() throws CategoryNotFoundException {
+    public void updateTest() {
         when(categoryRepository.save(category_1)).thenReturn(category_1);
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(category_1));
 
@@ -95,17 +94,14 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void updateTest__categoryNotFound() throws CategoryNotFoundException {
-        when(categoryRepository.save(category_1)).thenReturn(category_1);
+    public void updateTest__categoryNotFound() {
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-        Category result = categoryService.update(category_1.getId(), category_1);
 
         assertThrows(CategoryNotFoundException.class, () -> categoryService.update(category_1.getId(), category_1));
     }
 
     @Test
-    public void deleteTest() {
+    public void deleteTest() throws CategoryNotFoundException {
         doNothing().when(categoryRepository).deleteById(anyLong());
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(category_1));
 
@@ -116,10 +112,7 @@ public class CategoryServiceImplTest {
 
     @Test
     public void deleteTest__categoryNotFound() {
-        doNothing().when(categoryRepository).deleteById(anyLong());
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-        categoryService.deleteById(category_1.getId());
 
         assertThrows(CategoryNotFoundException.class, () -> categoryService.deleteById(category_1.getId()));
     }
