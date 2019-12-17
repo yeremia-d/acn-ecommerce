@@ -54,7 +54,7 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void getByIdTest() {
+    public void getByIdTest() throws CategoryNotFoundException {
         when(categoryRepository.findById(category_1.getId())).thenReturn(Optional.of(category_1));
 
         Category result = categoryService.getById(category_1.getId());
@@ -64,12 +64,12 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void getByIdTest__categoryNotFound() {
+    public void getByIdTest__categoryNotFound() throws CategoryNotFoundException {
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         Category result = categoryService.getById(1L);
 
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.getById(anyLong()));
+        assertThrows(CategoryNotFoundException.class, () -> categoryService.getById(1L));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void updateTest() {
+    public void updateTest() throws CategoryNotFoundException {
         when(categoryRepository.save(category_1)).thenReturn(category_1);
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(category_1));
 
@@ -95,7 +95,7 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void updateTest__categoryNotFound() {
+    public void updateTest__categoryNotFound() throws CategoryNotFoundException {
         when(categoryRepository.save(category_1)).thenReturn(category_1);
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
 
@@ -121,7 +121,7 @@ public class CategoryServiceImplTest {
 
         categoryService.deleteById(category_1.getId());
 
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.deleteById(anyLong()));
+        assertThrows(CategoryNotFoundException.class, () -> categoryService.deleteById(category_1.getId()));
     }
 
 }
